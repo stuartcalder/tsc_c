@@ -1,0 +1,12 @@
+[package]
+name = "tsc_c"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tsc = { path = "../tsc" }
+
+[lib]
+crate-type = ["cdylib"]
+name = "TSC"
+path = "src/lib.rs"
