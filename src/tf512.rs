@@ -1,6 +1,6 @@
 use tsc::tf512::*;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn TSC_Threefish512Static_rekey(
     ctx: *mut   Threefish512Static,
     key: *mut   u64,
@@ -11,7 +11,7 @@ pub extern "C" fn TSC_Threefish512Static_rekey(
     unsafe {&mut *ctx}.rekey(k, t);
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn TSC_Threefish512Static_encipher_1(
     ctx_p: *mut Threefish512Static,
     io_p:  *mut u64)
@@ -21,9 +21,9 @@ pub extern "C" fn TSC_Threefish512Static_encipher_1(
     ctx.encipher_1(io);
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn TSC_Threefish512Static_encipher_2(
-    ctx_p: *mut Threefish512Static,
+    ctx_p:        *mut Threefish512Static,
     ciphertext_p: *mut u64,
     plaintext_p:  *const u64)
 {
@@ -33,7 +33,7 @@ pub extern "C" fn TSC_Threefish512Static_encipher_2(
     ctx.encipher_2(ciphertext, plaintext);
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn TSC_Threefish512Dynamic_rekey(
     ctx_p:   *mut   Threefish512Dynamic,
     key_p:   *const u64,
@@ -47,7 +47,7 @@ pub extern "C" fn TSC_Threefish512Dynamic_rekey(
     ctx.rekey();
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn TSC_Threefish512Dynamic_encipher_1(
     ctx_p: *mut Threefish512Dynamic,
     io_p:  *mut u64)
@@ -57,11 +57,11 @@ pub extern "C" fn TSC_Threefish512Dynamic_encipher_1(
     ctx.encipher_1(io);
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn TSC_Threefish512Dynamic_encipher_2(
-    ctx_p: *mut Threefish512Dynamic,
-    ciphertext_p: *mut u64,
-    plaintext_p: *const u64)
+    ctx_p:        *mut   Threefish512Dynamic,
+    ciphertext_p: *mut   u64,
+    plaintext_p:  *const u64)
 {
     let ctx = unsafe {&mut *ctx_p};
     let ciphertext = unsafe {std::slice::from_raw_parts_mut(ciphertext_p, NUM_BLOCK_WORDS)};
