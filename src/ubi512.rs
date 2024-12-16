@@ -1,7 +1,7 @@
 use tsc::tf512::*;
 use tsc::ubi512::*;
 
-#[unsafe(no_mangle)]
+#[no_mangle]
 pub extern "C" fn TSC_UBI512_chainConfig(
     ctx_p: *mut Ubi512,
     num_output_bits: u64)
@@ -10,7 +10,7 @@ pub extern "C" fn TSC_UBI512_chainConfig(
     ctx.chain_config(num_output_bits);
 }
 
-#[unsafe(no_mangle)]
+#[no_mangle]
 pub extern "C" fn TSC_UBI512_chainMessage(
     ctx_p: *mut Ubi512,
     input_p: *const u8,
@@ -23,7 +23,7 @@ pub extern "C" fn TSC_UBI512_chainMessage(
     ctx.chain_message(input);
 }
 
-#[unsafe(no_mangle)]
+#[no_mangle]
 pub extern "C" fn TSC_UBI512_chainOutput(
     ctx_p: *mut Ubi512,
     output_p: *mut u8,
@@ -36,7 +36,7 @@ pub extern "C" fn TSC_UBI512_chainOutput(
     ctx.chain_output(output);
 }
 
-#[unsafe(no_mangle)]
+#[no_mangle]
 pub extern "C" fn TSC_UBI512_chainOutputNative(
     ctx_p: *mut Ubi512,
     output_p: *mut u8)
@@ -48,7 +48,7 @@ pub extern "C" fn TSC_UBI512_chainOutputNative(
     ctx.chain_output_native(output);
 }
 
-#[unsafe(no_mangle)]
+#[no_mangle]
 pub extern "C" fn TSC_UBI512_chainKey(
     ctx_p: *mut Ubi512,
     input_key_p: *const u8)

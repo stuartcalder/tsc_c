@@ -41,8 +41,6 @@ typedef PPQ_Threefish512Static      TSC_Threefish512Static;
 #define TSC_THREEFISH512STATIC_NULL_LITERAL  PPQ_THREEFISH512STATIC_NULL_LITERAL
 typedef PPQ_Threefish512Dynamic     TSC_Threefish512Dynamic;
 #define TSC_THREEFISH512DYNAMIC_NULL_LITERAL PPQ_THREEFISH512DYNAMIC_NULL_LITERAL
-typedef PPQ_Threefish512CounterMode TSC_Threefish512CtrMode;
-#define TSC_THREEFISH512CTRMODE_NULL_LITERAL PPQ_THREEFISH512COUNTERMODE_NULL_LITERAL
 
 #else /* (Don't use PPQ) */
 typedef struct {
@@ -60,6 +58,17 @@ typedef struct {
 #define TSC_THREEFISH512DYNAMIC_NULL_LITERAL \
  SSC_COMPOUND_LITERAL(TSC_Threefish512Dynamic, 0)
 #endif
+
+typedef struct {
+  TSC_Threefish512Static threefish512;
+  uint64_t               keystream [TSC_THREEFISH512_BLOCK_WORDS];
+  uint64_t               buffer    [TSC_THREEFISH512_BLOCK_WORDS];
+} TSC_Threefish512Ctr;
+#define TSC_THREEFISH512CTR_NULL_LITERAL \
+ SSC_COMPOUND_LITERAL(TSC_Threefish512Ctr,\
+  TSC_THREEFISH512STATIC_NULL_LITERAL,\
+  {0},\
+  {0})
 
 // Static Procedures.
 SSC_IMPORT void
@@ -96,6 +105,20 @@ TSC_Threefish512Dynamic_encipher_2(
   TSC_Threefish512Dynamic* R_ ctx,
   uint64_t*                R_ ciphertext,
   uint64_t*                R_ plaintext);
+
+SSC_IMPORT void
+TSC_Threefish512Ctr_init(
+  TSC_Threefish512Ctr* R_ ctx,
+  uint64_t*            R_ key,
+  uint64_t*            R_ tweak,
+  uint64_t*            R_ ctr_iv);
+
+TSC_IMPORT void
+TSC_Threefish512Ctr_xor_1(
+  TSC_Threefish512Ctr* R_ ctx,
+  uint8_t*             R_ io,
+  size_t                  io_size,
+  uint64_t                keystream_start);
 
 SSC_END_C_DECLS
 #undef R_
