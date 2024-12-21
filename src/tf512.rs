@@ -110,3 +110,17 @@ pub extern "C" fn TSC_Threefish12Ctr_xor_1(
     let io  = unsafe {std::slice::from_raw_parts_mut(io_p, io_size)};
     ctx.xor_1(io, keystream_start);
 }
+
+#[no_mangle]
+pub extern "C" fn TSC_Threefish512Ctr_xor_2(
+    ctx_p: *mut Threefish512Ctr,
+    output_p: *mut u8,
+    input_p:  *const u8,
+    io_size: usize,
+    keystream_start: u64)
+{
+    let ctx = unsafe {&mut *ctx_p};
+    let output = unsafe {std::slice::from_raw_parts_mut(output_p, io_size)};
+    let input  = unsafe {std::slice::from_raw_parts(input_p, io_size)};
+    ctx.xor_2(output, input, keystream_start);
+}

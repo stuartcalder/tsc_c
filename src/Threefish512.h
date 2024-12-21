@@ -20,7 +20,8 @@ SSC_BEGIN_C_DECLS
 #define TSC_THREEFISH512_KEY_WORDS_WITH_PARITY   9
 #define TSC_THREEFISH512_TWEAK_WORDS_WITH_PARITY 3
 #define TSC_THREEFISH512_KEYSCHEDULE_WORDS       (TSC_THREEFISH512_KEY_WORDS * TSC_THREEFISH512_NUMBER_SUBKEYS)
-#define TSC_THREEFISH512COUNTERMODE_IV_BYTES     32  /* Counter Mode initialization vector bytes, copied into the second half of the block. */
+#define TSC_THREEFISH512CTR_IV_BYTES             32  /* Counter Mode initialization vector bytes, copied into the second half of the block. */
+#define TSC_THREEFISH512CTR_IV_WORDS             4
 
 /**
  * CONSTANT_240 gets XOR'd with the 8 bytes of the provided key. The key is described by the specification in the little
@@ -86,7 +87,7 @@ SSC_IMPORT void
 TSC_Threefish512Static_encipher_2(
   TSC_Threefish512Static* R_ ctx,
   uint64_t*               R_ ciphertext,
-  uint64_t*               R_ plaintext);
+  const uint64_t*         R_ plaintext);
 
 // Dynamic Procedures.
 SSC_IMPORT void
@@ -104,19 +105,28 @@ SSC_IMPORT void
 TSC_Threefish512Dynamic_encipher_2(
   TSC_Threefish512Dynamic* R_ ctx,
   uint64_t*                R_ ciphertext,
-  uint64_t*                R_ plaintext);
+  const uint64_t*          R_ plaintext);
 
+// Ctr Mode Procedures.
 SSC_IMPORT void
 TSC_Threefish512Ctr_init(
   TSC_Threefish512Ctr* R_ ctx,
   uint64_t*            R_ key,
   uint64_t*            R_ tweak,
-  uint64_t*            R_ ctr_iv);
+  const uint64_t*      R_ ctr_iv);
 
 TSC_IMPORT void
 TSC_Threefish512Ctr_xor_1(
   TSC_Threefish512Ctr* R_ ctx,
   uint8_t*             R_ io,
+  size_t                  io_size,
+  uint64_t                keystream_start);
+
+TSC_IMPORT void
+TSC_Threefish512Ctr_xor_2(
+  TSC_Threefish512Ctr* R_ ctx,
+  uint8_t*             R_ output,
+  const uint8_t*       R_ input,
   size_t                  io_size,
   uint64_t                keystream_start);
 
