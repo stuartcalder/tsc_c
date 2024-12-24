@@ -54,7 +54,7 @@ pub extern "C" fn TSC_Skein512_mac(
         std::slice::from_raw_parts(input_p, input_size)
     };
     let key = unsafe {
-        std::slice::from_raw_parts(key_p, NUM_KEY_WORDS_WITH_PARITY)
+        std::slice::from_raw_parts(key_p, NUM_KEY_WORDS)
     };
     ctx.mac(output, input, key);
 }

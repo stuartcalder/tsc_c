@@ -100,7 +100,7 @@ pub extern "C" fn TSC_Threefish512Ctr_init(
 }
 
 #[no_mangle]
-pub extern "C" fn TSC_Threefish12Ctr_xor_1(
+pub extern "C" fn TSC_Threefish512Ctr_xor_1(
     ctx_p: *mut Threefish512Ctr,
     io_p:  *mut u8,
     io_size: usize,

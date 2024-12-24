@@ -31,7 +31,7 @@ TSC_Skein512_mac(
   size_t             output_size,
   const uint8_t*  R_ input,
   size_t             input_size,
-  const uint64_t* R_ key)
+  const uint64_t* R_ key);
 
 SSC_END_C_DECLS
 #undef R_

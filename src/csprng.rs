@@ -21,11 +21,11 @@ pub extern "C" fn TSC_CSPRNG_del(ctx_p: *mut Csprng)
 #[no_mangle]
 pub extern "C" fn TSC_CSPRNG_reseedFromBytes(
     ctx_p: *mut Csprng,
-    bytes_p: *const u8)
+    bytes_p: *const cty::c_void)
 {
     let ctx   = unsafe {&mut *ctx_p};
     let bytes = unsafe {
-        std::slice::from_raw_parts(bytes_p, NUM_SEED_BYTES)
+        std::slice::from_raw_parts(bytes_p as *const _ as *const u8, NUM_SEED_BYTES)
     };
     ctx.reseed_from_bytes(bytes);
 }
@@ -38,14 +38,14 @@ pub extern "C" fn TSC_CSPRNG_reseedFromOS(ctx_p: *mut Csprng)
 }
 
 #[no_mangle]
-pub extern "C" fn TSC_CSPRNG_get(
+pub extern "C" fn TSC_CSPRNG_getBytes(
     ctx_p: *mut Csprng,
-    output_p: *mut u8,
+    output_p: *mut cty::c_void,
     output_size: usize)
 {
     let ctx = unsafe {&mut *ctx_p};
     let output = unsafe {
-        std::slice::from_raw_parts_mut(output_p, output_size)
+        std::slice::from_raw_parts_mut(output_p as *mut _ as *mut u8, output_size)
     };
     ctx.get_bytes(output);
 }

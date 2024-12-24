@@ -21,13 +21,16 @@ SSC_IMPORT void
 TSC_CSPRNG_init(TSC_CSPRNG* ctx);
 
 SSC_IMPORT void
-TSC_CSPRNG_reseedFromBytes(TSC_CSPRNG* R_ ctx, const uint8_t* R_ bytes);
+TSC_CSPRNG_del(TSC_CSPRNG* ctx);
+
+SSC_IMPORT void
+TSC_CSPRNG_reseedFromBytes(TSC_CSPRNG* R_ ctx, const void* R_ bytes);
 
 SSC_IMPORT void
 TSC_CSPRNG_reseedFromOS(TSC_CSPRNG* ctx);
 
 SSC_IMPORT void
-TSC_CSPRNG_get(TSC_CSPRNG* R_ ctx, uint8_t* R_ output, size_t output_size);
+TSC_CSPRNG_getBytes(TSC_CSPRNG* R_ ctx, void* R_ output, size_t output_size);
 
 
 SSC_END_C_DECLS

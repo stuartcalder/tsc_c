@@ -115,14 +115,14 @@ TSC_Threefish512Ctr_init(
   uint64_t*            R_ tweak,
   const uint64_t*      R_ ctr_iv);
 
-TSC_IMPORT void
+SSC_IMPORT void
 TSC_Threefish512Ctr_xor_1(
   TSC_Threefish512Ctr* R_ ctx,
   uint8_t*             R_ io,
   size_t                  io_size,
   uint64_t                keystream_start);
 
-TSC_IMPORT void
+SSC_IMPORT void
 TSC_Threefish512Ctr_xor_2(
   TSC_Threefish512Ctr* R_ ctx,
   uint8_t*             R_ output,
