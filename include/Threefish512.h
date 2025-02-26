@@ -1,3 +1,20 @@
+/* *
+ * tsc_c - Provide a C API for the TSC library.
+ * Copyright (C) 2025 Stuart Calder
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 #ifndef TSC_THREEFISH512_H
 #define TSC_THREEFISH512_H
 
@@ -36,14 +53,6 @@ SSC_BEGIN_C_DECLS
  #error "Invalid endianness!"
 #endif
 
-#if defined(TSC_USE_PPQ)
-#include <PPQ/Threefish512.h>
-typedef PPQ_Threefish512Static      TSC_Threefish512Static;
-#define TSC_THREEFISH512STATIC_NULL_LITERAL  PPQ_THREEFISH512STATIC_NULL_LITERAL
-typedef PPQ_Threefish512Dynamic     TSC_Threefish512Dynamic;
-#define TSC_THREEFISH512DYNAMIC_NULL_LITERAL PPQ_THREEFISH512DYNAMIC_NULL_LITERAL
-
-#else /* (Don't use PPQ) */
 typedef struct {
   uint64_t state        [TSC_THREEFISH512_BLOCK_WORDS];
   uint64_t key_schedule [TSC_THREEFISH512_KEYSCHEDULE_WORDS];
@@ -58,7 +67,6 @@ typedef struct {
 } TSC_Threefish512Dynamic;
 #define TSC_THREEFISH512DYNAMIC_NULL_LITERAL \
  SSC_COMPOUND_LITERAL(TSC_Threefish512Dynamic, 0)
-#endif
 
 typedef struct {
   TSC_Threefish512Static threefish512;

@@ -1,3 +1,21 @@
+/* *
+ * tsc_c - Provide a C API for the TSC library.
+ * Copyright (C) 2025 Stuart Calder
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+#![allow(unused_imports)]
 use tsc::tf512::*;
 use tsc::ubi512::*;
 use tsc::ubi512::NUM_HASH_BYTES;
@@ -12,10 +30,7 @@ pub extern "C" fn TSC_Catena512_init(
     g_high: u8)
 {
     let ctx = unsafe {&mut *ctx_p};
-    let num_allocated_bytes = {1usize << {g_high + 6}};
-    let v = vec![0u8; num_allocated_bytes];
-    ctx.graph_memory = v.into_boxed_slice();
-    ctx.g_high = g_high;
+    ctx.new_in_place(g_high);
 }
 
 #[no_mangle]
@@ -41,8 +56,7 @@ pub extern "C" fn TSC_Catena512_get(
     let password = unsafe {
         std::slice::from_raw_parts(password_p, password_size)
     };
-    let result = ctx.get(output, password, g_low, lambda, use_phi);
-    match result {
+    match ctx.get(output, password, g_low, lambda, use_phi) {
         Ok(_)     => 0    as c_int,
         Err(code) => code as c_int,
     }

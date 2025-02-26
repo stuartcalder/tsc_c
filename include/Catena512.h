@@ -1,3 +1,20 @@
+/* *
+ * tsc_c - Provide a C API for the TSC library.
+ * Copyright (C) 2025 Stuart Calder
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 #ifndef TSC_CATENA512_H
 #define TSC_CATENA512_H
 
@@ -11,7 +28,7 @@
 #define TSC_CATENA512_SALT_BYTES         32
 #define TSC_CATENA512_MAX_PASSWORD_BYTES 125
 #define TSC_CATENA512_TWEAK_BYTES        (TSC_THREEFISH512_BLOCK_BYTES + 1 + 1 + 2 + 2)
-#define TSC_CATENA512_RNG_BYTES          TSC_THREEFISH512_BLOCK_BYTES
+#define TSC_CATENA512_RNG_BYTES          (TSC_THREEFISH512_BLOCK_BYTES + 16)
 #define TSC_CATENA512_DOMAIN_PWSCRAMBLER UINT8_C(0)
 #define TSC_CATENA512_DOMAIN_KDF         UINT8_C(1)
 #define TSC_CATENA512_DOMAIN_POW         UINT8_C(2)

@@ -1,0 +1,2 @@
+The "include" directory includes C header files defining the C API for TSC.
+Place those header files with the rest of your C and C++ headers in a directory named TSC, all caps.

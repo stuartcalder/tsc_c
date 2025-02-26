@@ -5,8 +5,8 @@ edition = "2021"
 
 [dependencies]
 cty = "0.2.2"
-ssc = { path = "../ssc" }
-tsc = { path = "../tsc" }
+rssc = { git = "https://github.com/stuartcalder/rssc.git" }
+tsc  = { git = "https://github.com/stuartcalder/tsc.git" }
 
 [lib]
 crate-type = ["cdylib"]
