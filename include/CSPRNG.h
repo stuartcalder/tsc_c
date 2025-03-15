@@ -58,6 +58,14 @@ TSC_CSPRNG_reseedFromOS(TSC_CSPRNG* ctx);
 SSC_IMPORT void
 TSC_CSPRNG_getBytes(TSC_CSPRNG* R_ ctx, void* R_ output, size_t output_size);
 
+/* Generate a pseudorandom uint64_t between 0 and @max. */
+SSC_IMPORT uint64_t
+TSC_CSPRNG_getRandomNaturalNumber(TSC_CSPRNG* R_ ctx, uint64_t max);
+
+/* Generate a pseudorandom uint64_t between @min and @max. */
+SSC_IMPORT uint64_t
+TSC_CSPRNG_getRandomU64InRange(TSC_CSPRNG* R_ ctx, uint64_t min, uint64_t max);
+
 
 SSC_END_C_DECLS
 #undef R_

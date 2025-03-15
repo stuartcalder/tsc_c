@@ -26,7 +26,7 @@ dependencies = [
 [[package]]
 name = "tsc"
 version = "0.1.0"
-source = "git+https://github.com/stuartcalder/tsc.git#8926f59b3e80054be9703bf08144df22c4447508"
+source = "git+https://github.com/stuartcalder/tsc.git#f1cc018680f23d17179d9618cf24c5a09a200075"
 dependencies = [
  "rssc",
 ]

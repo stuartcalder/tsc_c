@@ -26,7 +26,6 @@ use tsc::csprng::*;
 pub extern "C" fn TSC_CSPRNG_init(ctx_p: *mut Csprng)
 {
     let ctx = unsafe {&mut *ctx_p};
-    ctx.buffer.fill(0u8);
     get_entropy(&mut ctx.seed);
 }
 
@@ -66,4 +65,18 @@ pub extern "C" fn TSC_CSPRNG_getBytes(
         std::slice::from_raw_parts_mut(output_p as *mut _ as *mut u8, output_size)
     };
     ctx.get_bytes(output);
+}
+
+#[no_mangle]
+pub extern "C" fn TSC_CSPRNG_getRandomNaturalNumber(ctx_p: *mut Csprng, max: u64) -> u64
+{
+    let ctx = unsafe {&mut *ctx_p};
+    ctx.get_random_natural_num(max)
+}
+
+#[no_mangle]
+pub extern "C" fn TSC_CSPRNG_getRandomU64InRange(ctx_p: *mut Csprng, min: u64, max: u64) -> u64
+{
+    let ctx = unsafe {&mut *ctx_p};
+    ctx.get_random_u64_in_range((min, max))
 }
