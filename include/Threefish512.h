@@ -58,7 +58,7 @@ typedef struct {
   uint64_t key_schedule [TSC_THREEFISH512_KEYSCHEDULE_WORDS];
 } TSC_Threefish512Static;
 #define TSC_THREEFISH512STATIC_NULL_LITERAL \
- SSC_COMPOUND_LITERAL(TSC_Threefish512Static, 0)
+ SSC_STRUCT_LITERAL(TSC_Threefish512Static, 0)
 
 typedef struct {
   uint64_t state [TSC_THREEFISH512_BLOCK_WORDS];
@@ -66,7 +66,7 @@ typedef struct {
   uint64_t tweak [TSC_THREEFISH512_TWEAK_WORDS_WITH_PARITY];
 } TSC_Threefish512Dynamic;
 #define TSC_THREEFISH512DYNAMIC_NULL_LITERAL \
- SSC_COMPOUND_LITERAL(TSC_Threefish512Dynamic, 0)
+ SSC_STRUCT_LITERAL(TSC_Threefish512Dynamic, 0)
 
 typedef struct {
   TSC_Threefish512Static threefish512;
@@ -74,7 +74,7 @@ typedef struct {
   uint64_t               buffer    [TSC_THREEFISH512_BLOCK_WORDS];
 } TSC_Threefish512Ctr;
 #define TSC_THREEFISH512CTR_NULL_LITERAL \
- SSC_COMPOUND_LITERAL(TSC_Threefish512Ctr,\
+ SSC_STRUCT_LITERAL(TSC_Threefish512Ctr,\
   TSC_THREEFISH512STATIC_NULL_LITERAL,\
   {0},\
   {0})

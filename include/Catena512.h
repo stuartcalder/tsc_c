@@ -68,7 +68,7 @@ typedef struct {
   uint8_t           salt [TSC_CATENA512_SALT_BYTES];
   uint8_t           g_high;
 } TSC_Catena512;
-#define TSC_CATENA512_NULL_LITERAL SSC_COMPOUND_LITERAL(TSC_Catena512, 0)
+#define TSC_CATENA512_NULL_LITERAL SSC_STRUCT_LITERAL(TSC_Catena512, 0)
 
 /*===============================================================================================================*/
 
@@ -76,7 +76,7 @@ typedef struct {
  * Allocate memory for Catena512. User is responsible for initializing
  * the fields of @ctx (except for @ctx->g_high and @ctx->graph_memory).
  */
-SSC_IMPORT void
+SSC_IMPORT SSC_Error_t
 TSC_Catena512_init(TSC_Catena512* ctx, uint8_t g_high);
 
 SSC_IMPORT void

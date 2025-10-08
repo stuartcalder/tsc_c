@@ -27,10 +27,13 @@ use cty::c_int;
 #[no_mangle]
 pub extern "C" fn TSC_Catena512_init(
     ctx_p: *mut Catena,
-    g_high: u8)
+    g_high: u8) -> c_int
 {
     let ctx = unsafe {&mut *ctx_p};
-    ctx.new_in_place(g_high);
+    match ctx.new_in_place(g_high) {
+        Ok(_) =>     0,
+        Err(code) => code
+    }
 }
 
 #[no_mangle]

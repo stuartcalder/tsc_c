@@ -36,18 +36,11 @@
 #define R_ SSC_RESTRICT
 SSC_BEGIN_C_DECLS
 
-#if defined(TSC_USE_PPQ)
-#include <PPQ/Ubi512.h>
-typedef PPQ_UBI512 TSC_UBI512;
-#define TSC_UBI512_NULL_LITERAL PPQ_UBI512_NULL_LITERAL
-
-#else /* (Don't use PPQ) */
 typedef struct {
   TSC_Threefish512Dynamic threefish512;
   uint8_t	                msg [TSC_THREEFISH512_BLOCK_BYTES];
 } TSC_UBI512;
-#define TSC_UBI512_NULL_LITERAL SSC_COMPOUND_LITERAL(TSC_UBI512, 0)
-#endif
+#define TSC_UBI512_NULL_LITERAL SSC_STRUCT_LITERAL(TSC_UBI512, 0) /* Zero-initialize TSC_UBI512 structs. */
 
 SSC_IMPORT void
 TSC_UBI512_chainConfig(
