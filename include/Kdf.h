@@ -27,8 +27,8 @@ SSC_BEGIN_C_DECLS
 
 SSC_IMPORT SSC_Error_t
 TSC_kdf(
-  uint8_t* R_       output,
-  const uint8_t* R_ input_salt,
+  uint8_t* R_       output, /* 64 byte buffer. */
+  const uint8_t* R_ input_salt, /* 32 byte pseudorandom input salt. */
   const uint8_t* R_ input_password,
   size_t            input_password_len,
   uint64_t          thread_count,

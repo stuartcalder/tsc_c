@@ -53,6 +53,11 @@ SSC_BEGIN_C_DECLS
  #error "Invalid endianness!"
 #endif
 
+/* TSC_Threefish512Static computes the Key Schedule for Threefish-512 once,
+ * and stores all its subkeys in the @key_schedule array. This is efficient
+ * when repeatedly invoking the cipher with a single key, such as during
+ * CTR mode encryption.
+ */
 typedef struct {
   uint64_t state        [TSC_THREEFISH512_BLOCK_WORDS];
   uint64_t key_schedule [TSC_THREEFISH512_KEYSCHEDULE_WORDS];
@@ -60,6 +65,10 @@ typedef struct {
 #define TSC_THREEFISH512STATIC_NULL_LITERAL \
  SSC_STRUCT_LITERAL(TSC_Threefish512Static, 0)
 
+/* TSC_Threefish512Dynamic computes the Key Schedule for Threefish-512 on the fly,
+ * and stores all the words of the @key and @tweak, including their respective parity words.
+ * This is efficient when repeatedly re-keying the cipher, such as during Skein hashing.
+ */
 typedef struct {
   uint64_t state [TSC_THREEFISH512_BLOCK_WORDS];
   uint64_t key   [TSC_THREEFISH512_KEY_WORDS_WITH_PARITY];
@@ -68,6 +77,7 @@ typedef struct {
 #define TSC_THREEFISH512DYNAMIC_NULL_LITERAL \
  SSC_STRUCT_LITERAL(TSC_Threefish512Dynamic, 0)
 
+/* TSC_Threefish512Ctr constructs a stream cipher by utilizing Threefish512 in Counter Mode (CTR Mode). */
 typedef struct {
   TSC_Threefish512Static threefish512;
   uint64_t               keystream [TSC_THREEFISH512_BLOCK_WORDS];
@@ -79,7 +89,7 @@ typedef struct {
   {0},\
   {0})
 
-// Static Procedures.
+/* Static Procedures. */
 SSC_IMPORT void
 TSC_Threefish512Static_rekey(
   TSC_Threefish512Static* R_ ctx,
@@ -97,7 +107,7 @@ TSC_Threefish512Static_encipher_2(
   uint64_t*               R_ ciphertext,
   const uint64_t*         R_ plaintext);
 
-// Dynamic Procedures.
+/* Dynamic Procedures. */
 SSC_IMPORT void
 TSC_Threefish512Dynamic_rekey(
   TSC_Threefish512Dynamic* R_ ctx,
