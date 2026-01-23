@@ -19,10 +19,11 @@
 #define TSC_CATENA512_H
 
 #include <SSC/Error.h>
-#include <SSC/Macro.h>
 #include <SSC/Operation.h>
 
+#include "Macro.h"
 #include "Skein512.h"
+#include <stdint.h>
 
 #define TSC_CATENA512_SALT_BITS          256
 #define TSC_CATENA512_SALT_BYTES         32
@@ -76,13 +77,13 @@ typedef struct {
  * Allocate memory for Catena512. User is responsible for initializing
  * the fields of @ctx (except for @ctx->g_high and @ctx->graph_memory).
  */
-SSC_IMPORT SSC_Error_t
+TSC_API SSC_Error_t
 TSC_Catena512_init(TSC_Catena512* ctx, uint8_t g_high);
 
-SSC_IMPORT void
+TSC_API void
 TSC_Catena512_del(TSC_Catena512* ctx);
 
-SSC_IMPORT SSC_Error_t
+TSC_API SSC_Error_t
 TSC_Catena512_get(
  TSC_Catena512* R_ ctx,
  uint8_t*       R_ output,

@@ -5,12 +5,12 @@ edition = "2021"
 
 [dependencies]
 cty = "0.2.2"
-rssc = { git = "https://github.com/stuartcalder/rssc.git" }
-tsc  = { git = "https://github.com/stuartcalder/tsc.git" }
-#rssc  = { path = "../rssc" }
-#tsc   = { path = "../tsc"  }
+#rssc = { git = "https://github.com/stuartcalder/rssc.git" }
+#tsc  = { git = "https://github.com/stuartcalder/tsc.git" }
+rssc  = { path = "../rssc" }
+tsc   = { path = "../tsc"  }
 
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "staticlib"]
 name = "TSC"
 path = "src/lib.rs"

@@ -19,6 +19,7 @@
 #define TSC_UBI512_H
 
 #include <stddef.h>
+#include <stdint.h>
 #include "Threefish512.h"
 
 #define TSC_UBI512_TWEAK_FIRST_BIT  UINT8_C(0x40)
@@ -42,28 +43,28 @@ typedef struct {
 } TSC_UBI512;
 #define TSC_UBI512_NULL_LITERAL SSC_STRUCT_LITERAL(TSC_UBI512, 0) /* Zero-initialize TSC_UBI512 structs. */
 
-SSC_IMPORT void
+TSC_API void
 TSC_UBI512_chainConfig(
  TSC_UBI512* const R_ ctx,
  const uint64_t       num_output_bits);
 
-SSC_IMPORT void
+TSC_API void
 TSC_UBI512_chainMessage(
  TSC_UBI512* const R_ ctx,
  const uint8_t* R_    input,       /* Where to read input from. */
  uint64_t             input_size); /* How many bytes to read. */
 
-SSC_IMPORT void
+TSC_API void
 TSC_UBI512_chainOutput(
  TSC_UBI512* const R_ ctx,
  uint8_t* R_          output,       /* Where to write the output. */
  uint64_t             output_size); /* How many bytes to output. */
-SSC_IMPORT void
+TSC_API void
 TSC_UBI512_chainOutputNative(
  TSC_UBI512* const R_ ctx,
  uint8_t* R_          output); /* Where to write 64 bytes of hash output. */
 
-SSC_IMPORT void
+TSC_API void
 TSC_UBI512_chainKey(
  TSC_UBI512* const R_ ctx,
  const uint8_t* R_    input_key);

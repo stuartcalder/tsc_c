@@ -17,7 +17,6 @@ checksum = "09d6582e104315a817dff97f75133544b2e094ee22447d2acf4a74e189ba06fc"
 [[package]]
 name = "rssc"
 version = "0.1.0"
-source = "git+https://github.com/stuartcalder/rssc.git#0f99ebd8c45abd738ee72850e5e5a388b6d5eb7d"
 dependencies = [
  "cty",
  "libc",
@@ -26,7 +25,6 @@ dependencies = [
 [[package]]
 name = "tsc"
 version = "0.1.0"
-source = "git+https://github.com/stuartcalder/tsc.git#f1cc018680f23d17179d9618cf24c5a09a200075"
 dependencies = [
  "rssc",
 ]

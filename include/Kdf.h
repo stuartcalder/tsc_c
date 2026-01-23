@@ -25,7 +25,7 @@
 #define R_ SSC_RESTRICT
 SSC_BEGIN_C_DECLS
 
-SSC_IMPORT SSC_Error_t
+TSC_API SSC_Error_t
 TSC_kdf(
   uint8_t* R_       output, /* 64 byte buffer. */
   const uint8_t* R_ input_salt, /* 32 byte pseudorandom input salt. */

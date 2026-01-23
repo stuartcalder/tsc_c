@@ -18,7 +18,7 @@
 #ifndef TSC_CSPRNG_H
 #define TSC_CSPRNG_H
 
-#include <SSC/Macro.h>
+#include "Macro.h"
 #include "Skein512.h"
 
 #define TSC_CSPRNG_SEED_BYTES   TSC_THREEFISH512_BLOCK_BYTES
@@ -34,36 +34,36 @@ typedef struct {
 } TSC_CSPRNG;
 #define TSC_CSPRNG_NULL_LITERAL SSC_STRUCT_LITERAL(TSC_CSPRNG, 0)
 
-SSC_IMPORT void
+TSC_API void
 TSC_CSPRNG_init(TSC_CSPRNG* ctx);
 
-SSC_IMPORT void
+TSC_API void
 TSC_CSPRNG_del(TSC_CSPRNG* ctx);
 
 /* Read in 64 bytes from @bytes, and hash them into @seed for future
  * invocations of the CSPRNG.
  */
-SSC_IMPORT void
+TSC_API void
 TSC_CSPRNG_reseedFromBytes(TSC_CSPRNG* R_ ctx, const void* R_ bytes);
 
 /* Read in 64 pseudorandom bytes from the Operating System, and hash them
  * into @seed for future invocations of the CSPRNG.
  */
-SSC_IMPORT void
+TSC_API void
 TSC_CSPRNG_reseedFromOS(TSC_CSPRNG* ctx);
 
 /* Repeatedly hash @seed to obtain @output_size pseudorandom bytes and write
  * all those pseudorandom bytes to @output.
  */
-SSC_IMPORT void
+TSC_API void
 TSC_CSPRNG_getBytes(TSC_CSPRNG* R_ ctx, void* R_ output, size_t output_size);
 
 /* Generate a pseudorandom uint64_t between 0 and @max. */
-SSC_IMPORT uint64_t
+TSC_API uint64_t
 TSC_CSPRNG_getRandomNaturalNumber(TSC_CSPRNG* R_ ctx, uint64_t max);
 
 /* Generate a pseudorandom uint64_t between @min and @max. */
-SSC_IMPORT uint64_t
+TSC_API uint64_t
 TSC_CSPRNG_getRandomU64InRange(TSC_CSPRNG* R_ ctx, uint64_t min, uint64_t max);
 
 

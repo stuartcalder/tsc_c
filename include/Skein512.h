@@ -18,7 +18,7 @@
 #ifndef TSC_SKEIN512_H
 #define TSC_SKEIN512_H
 
-#include <SSC/Macro.h>
+#include "Macro.h"
 #include "Ubi512.h"
 
 #define R_ SSC_RESTRICT
@@ -27,7 +27,7 @@ SSC_BEGIN_C_DECLS
 typedef TSC_UBI512 TSC_Skein512;
 #define TSC_SKEIN512_NULL_LITERAL TSC_UBI512_NULL_LITERAL
 
-SSC_IMPORT void
+TSC_API void
 TSC_Skein512_hash(
   TSC_Skein512*  R_ ctx,
   uint8_t*       R_ output,
@@ -35,14 +35,14 @@ TSC_Skein512_hash(
   const uint8_t* R_ input,
   size_t            input_size);
 
-SSC_IMPORT void
+TSC_API void
 TSC_Skein512_hashNative(
   TSC_Skein512*  R_ ctx,
   uint8_t*       R_ output,
   const uint8_t* R_ input,
   size_t            input_size);
 
-SSC_IMPORT void
+TSC_API void
 TSC_Skein512_mac(
   TSC_Skein512*   R_ ctx,
   uint8_t*        R_ output,
