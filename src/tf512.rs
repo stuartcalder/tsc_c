@@ -309,15 +309,15 @@ pub extern "C" fn TSC_Threefish512CtrDynamic_xor_2(
 
 #[no_mangle]
 pub extern "C" fn TSC_Threefish512Ocbt_seal(
-    ctx_p:      *mut Threefish512Ocbt,
-    ct_out_p:   *mut u8,
-    tag_out_p:  *mut u8,
-    key_in_p:   *const u64,
-    nonce_in:   u64,
-    ad_in_p:    *const u8,
-    ad_size:    usize,
-    pt_in_p:    *const u8,
-    pt_size:    usize,
+    ctx_p:     *mut Threefish512Ocbt,
+    ct_out_p:  *mut u8,
+    tag_out_p: *mut u8,
+    key_in_p:  *const u64,
+    nonce_in:  u64,
+    ad_in_p:   *const u8,
+    ad_size:   usize,
+    pt_in_p:   *const u8,
+    pt_size:   usize,
 ) -> i32 {
     let ctx     = unsafe {&mut *ctx_p};
     let ct_out  = unsafe {std::slice::from_raw_parts_mut(ct_out_p, pt_size)};

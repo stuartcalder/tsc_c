@@ -20,6 +20,12 @@ use tsc::ubi512::*;
 use tsc::skein512::*;
 
 #[no_mangle]
+pub static TSC_SKEIN512_NATIVE_INIT: [u64; 8] = tsc::skein512::NATIVE_INIT;
+
+#[no_mangle]
+pub static TSC_SKEIN512_1024_INIT: [u64; 8] = tsc::skein512::OUTPUT_16_WORDS_INIT;
+
+#[no_mangle]
 pub extern "C" fn TSC_Skein512_hash(
     ctx_p: *mut Skein512,
     output_p: *mut u8,

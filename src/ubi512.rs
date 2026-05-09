@@ -19,6 +19,9 @@ use tsc::tf512::*;
 use tsc::ubi512::*;
 
 #[no_mangle]
+pub static TSC_UBI512_CONFIG_INIT: [u64; NUM_HASH_WORDS] = tsc::ubi512::CONFIG_INIT;
+
+#[no_mangle]
 pub extern "C" fn TSC_UBI512_chainConfig(
     ctx_p: *mut Ubi512,
     num_output_bits: u64)

@@ -34,12 +34,15 @@
 #define TSC_UBI512_TYPEMASK_MSG     UINT8_C(48) /* Message. */
 #define TSC_UBI512_TYPEMASK_OUT     UINT8_C(63) /* Output. */
 
+
 #define R_ SSC_RESTRICT
 SSC_BEGIN_C_DECLS
 
+extern const uint64_t TSC_UBI512_CONFIG_INIT [TSC_THREEFISH512_BLOCK_WORDS];
+
 typedef struct {
   TSC_Threefish512Dynamic threefish512;
-  uint8_t	                msg [TSC_THREEFISH512_BLOCK_BYTES];
+  uint64_t                msg [TSC_THREEFISH512_BLOCK_WORDS];
 } TSC_UBI512;
 #define TSC_UBI512_NULL_LITERAL SSC_STRUCT_LITERAL(TSC_UBI512, 0) /* Zero-initialize TSC_UBI512 structs. */
 
