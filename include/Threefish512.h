@@ -42,17 +42,17 @@ SSC_BEGIN_C_DECLS
 /* CTR Mode */
 #define TSC_THREEFISH512CTR_IV_BYTES             32  /* Counter Mode initialization vector bytes, copied into the second half of the block. */
 #define TSC_THREEFISH512CTR_IV_WORDS             4
-/* OCB-T Mode */
-#define TSC_THREEFISH512OCBT_FLAG_AD             UINT64_C(1)
-#define TSC_THREEFISH512OCBT_FLAG_DATA           UINT64_C(2)
-#define TSC_THREEFISH512OCBT_FLAG_PARTIAL        UINT64_C(4)
-#define TSC_THREEFISH512OCBT_FLAG_TAG            UINT64_C(8)
+/* OCB Mode */
+#define TSC_THREEFISH512OCB_FLAG_AD             UINT64_C(1)
+#define TSC_THREEFISH512OCB_FLAG_DATA           UINT64_C(2)
+#define TSC_THREEFISH512OCB_FLAG_PARTIAL        UINT64_C(4)
+#define TSC_THREEFISH512OCB_FLAG_TAG            UINT64_C(8)
 
-#define TSC_THREEFISH512OCBT_TAG_WORDS            8
-#define TSC_THREEFISH512OCBT_TAG_BYTES            64
+#define TSC_THREEFISH512OCB_TAG_WORDS            8
+#define TSC_THREEFISH512OCB_TAG_BYTES            64
 
-#define TSC_THREEFISH512OCBT_ERROR_TAG_MISMATCH   INT32_C(1)
-#define TSC_THREEFISH512OCBT_ERROR_INVALID_LENGTH INT32_C(2)
+#define TSC_THREEFISH512OCB_ERROR_TAG_MISMATCH   INT32_C(1)
+#define TSC_THREEFISH512OCB_ERROR_INVALID_LENGTH INT32_C(2)
 
 /**
  * CONSTANT_240 gets XOR'd with the 8 bytes of the provided key. The key is described by the specification in the little
@@ -122,10 +122,10 @@ typedef struct {
   TSC_Threefish512Dynamic tf;
   uint64_t                ad_acc   [TSC_THREEFISH512_BLOCK_WORDS];
   uint64_t                data_acc [TSC_THREEFISH512_BLOCK_WORDS];
-} TSC_Threefish512Ocbt;
-#define TSC_THREEFISH512OCBT_NULL_LITERAL \
+} TSC_Threefish512Ocb;
+#define TSC_THREEFISH512OCB_NULL_LITERAL \
  SSC_STRUCT_LITERAL(\
-  TSC_Threefish512Ocbt,\
+  TSC_Threefish512Ocb,\
   UINT64_C(0),\
   UINT64_C(0),\
   TSC_THREEFISH512DYNAMIC_NULL_LITERAL,\
@@ -271,16 +271,16 @@ TSC_Threefish512CtrDynamic_xor_2(
   size_t                         io_size,
   uint64_t                       keystream_start);
 
-// OCB-T Mode Procedures.
+// OCB Mode Procedures.
 
 /* The seal() function encrypts a payload and/or authenticates additional data.
  * Returns 0 on success, or
- * TSC_THREEFISH512OCBT_ERROR_TAG_MISMATCH or
- * TSC_THREEFISH512OCBT_ERROR_INVALID_LENGTH.
+ * TSC_THREEFISH512OCB_ERROR_TAG_MISMATCH or
+ * TSC_THREEFISH512OCB_ERROR_INVALID_LENGTH.
  */
 TSC_API int32_t
-TSC_Threefish512Ocbt_seal(
-  TSC_Threefish512Ocbt* R_ ctx,
+TSC_Threefish512Ocb_seal(
+  TSC_Threefish512Ocb* R_ ctx,
   uint8_t*              R_ ciphertext_out, /* Where we're writing the ciphertext bytes.*/
   uint8_t*              R_ tag_out, /* Where we're writing the 512-bit authentication tag. */
   const uint64_t*       R_ key_in,  /* Where we're getting the 512-bit key. */
@@ -291,8 +291,8 @@ TSC_Threefish512Ocbt_seal(
   size_t                   plaintext_size); /* How much plaintext we're going to encrypt. */
 
 TSC_API int32_t
-TSC_Threefish512Ocbt_open(
-  TSC_Threefish512Ocbt* R_ ctx,
+TSC_Threefish512Ocb_open(
+  TSC_Threefish512Ocb* R_ ctx,
   uint8_t*              R_ plaintext_out,
   const uint64_t*       R_ key_in,
   uint64_t                 nonce_in,

@@ -303,13 +303,13 @@ pub extern "C" fn TSC_Threefish512CtrDynamic_xor_2(
     xor_2!(ctx_p, output_p, input_p, io_size, keystream_start);
 }
 
-// <----------------- OCB-T ---------------------->
-// At present OCB-T does not need to be initialized, since everything inside Threefish512Ocbt is by
+// <----------------- OCB ---------------------->
+// At present OCB does not need to be initialized, since everything inside Threefish512Ocb is by
 // default zeroed, which can be handled from the C side with a NULL_LITERAL macro.
 
 #[no_mangle]
-pub extern "C" fn TSC_Threefish512Ocbt_seal(
-    ctx_p:     *mut Threefish512Ocbt,
+pub extern "C" fn TSC_Threefish512Ocb_seal(
+    ctx_p:     *mut Threefish512Ocb,
     ct_out_p:  *mut u8,
     tag_out_p: *mut u8,
     key_in_p:  *const u64,
@@ -321,8 +321,8 @@ pub extern "C" fn TSC_Threefish512Ocbt_seal(
 ) -> i32 {
     let ctx     = unsafe {&mut *ctx_p};
     let ct_out  = unsafe {std::slice::from_raw_parts_mut(ct_out_p, pt_size)};
-    let tag_out_slice = unsafe {std::slice::from_raw_parts_mut(tag_out_p, OCBT_TAG_BYTES)};
-    let tag_out = <&mut [u8; OCBT_TAG_BYTES]>::try_from(tag_out_slice).unwrap();
+    let tag_out_slice = unsafe {std::slice::from_raw_parts_mut(tag_out_p, OCB_TAG_BYTES)};
+    let tag_out = <&mut [u8; OCB_TAG_BYTES]>::try_from(tag_out_slice).unwrap();
     let key_in_slice = unsafe {std::slice::from_raw_parts(key_in_p, NUM_KEY_WORDS)};
     let key_in = <&[u64; NUM_KEY_WORDS]>::try_from(key_in_slice).unwrap();
     let ad_in = unsafe {std::slice::from_raw_parts(ad_in_p, ad_size)};
@@ -338,14 +338,14 @@ pub extern "C" fn TSC_Threefish512Ocbt_seal(
     );
     match res {
         Ok(_) => {0i32},
-        Err(OcbtError::TagMismatch)   => {1i32},
-        Err(OcbtError::InvalidLength) => {2i32},
+        Err(OcbError::TagMismatch)   => {1i32},
+        Err(OcbError::InvalidLength) => {2i32},
     }
 }
 
 #[no_mangle]
-pub extern "C" fn TSC_Threefish512Ocbt_open(
-    ctx_p:    *mut Threefish512Ocbt,
+pub extern "C" fn TSC_Threefish512Ocb_open(
+    ctx_p:    *mut Threefish512Ocb,
     pt_out_p: *mut u8,
     key_in_p: *const u64,
     nonce_in: u64,
@@ -361,8 +361,8 @@ pub extern "C" fn TSC_Threefish512Ocbt_open(
     let key_in = <&[u64; NUM_KEY_WORDS]>::try_from(key_in_slice).unwrap();
     let ad_in = unsafe {std::slice::from_raw_parts(ad_in_p, ad_size)};
     let ct_in = unsafe {std::slice::from_raw_parts(ct_in_p, ct_size)};
-    let tag_in_slice = unsafe {std::slice::from_raw_parts(tag_in_p, OCBT_TAG_BYTES)};
-    let tag_in = <&[u8; OCBT_TAG_BYTES]>::try_from(tag_in_slice).unwrap();
+    let tag_in_slice = unsafe {std::slice::from_raw_parts(tag_in_p, OCB_TAG_BYTES)};
+    let tag_in = <&[u8; OCB_TAG_BYTES]>::try_from(tag_in_slice).unwrap();
 
     let res = ctx.open(
         pt_out,
@@ -374,7 +374,7 @@ pub extern "C" fn TSC_Threefish512Ocbt_open(
     );
     match res {
         Ok(_) => {0i32},
-        Err(OcbtError::TagMismatch)   => {1i32},
-        Err(OcbtError::InvalidLength) => {2i32},
+        Err(OcbError::TagMismatch)   => {1i32},
+        Err(OcbError::InvalidLength) => {2i32},
     }
 }
